@@ -1,0 +1,27 @@
+plugins {
+    // Apply the common convention plugin for shared build configuration between library and application projects.
+    id 'io.beandev.contracts.java-common-conventions'
+
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'application'
+}
+
+tasks.register('echoMessage') {
+    group = 'Custom tasks'
+    doLast {
+        println 'This is a message from the echoMessage task.'
+    }
+}
+
+ext {
+    helidonVersion = '4.0.4'
+}
+
+dependencies {
+    // import Helidon dependency management (Helidon BOM)
+    implementation enforcedPlatform("io.helidon:helidon-dependencies:${project.helidonVersion}")
+    implementation 'io.helidon.http.media:helidon-http-media-jsonp'
+
+    // Define the dependencies for the project.
+    implementation 'io.helidon.webserver:helidon-webserver'
+}
